@@ -47,14 +47,14 @@
 			<caption>
 				
               <table class="table" id="tabla">
-                    <thead>
+                    <thead class="thead-inverse table-bordered " >
                         <tr>
                             <th>Nombre</th>
                             <th>Apellido</th>
-                            <td>Nombre de usuario</td>
-                            <td>Rut</td>
-                             <td>telefono</td>
-                            <td>Drirecci&oacute;n</td>
+                            <th>Nombre de usuario</th>
+                            <th>Rut</th>
+                             <th>telefono</th>
+                            <th>Drirecci&oacute;n</th>
                             <sec:authorize access="hasRole('ADMIN')">
                             <th>Opcion</th>
                             </sec:authorize>
@@ -72,9 +72,9 @@
 						<td>${user.telefono}</td>
 						<td>${user.direccion}</td>
 						<sec:authorize access="hasRole('ADMIN')">
-						<td><a href="<c:url value='/edit-user-${user.ssoId}' />" class="btn btn-success custom-width">editar</a></td>
+						<td><a href="<c:url value='/edit-user-${user.ssoId}' />" class="btn btn-success custom-width">editar</a>
 						
-							<td><a href="<c:url value='/delete-user-${user.ssoId}' />" class="btn btn-danger custom-width">eliminar</a></td>
+							<a href="<c:url value='/delete-user-${user.ssoId}' />" class="btn btn-danger custom-width">eliminar</a></td>
         				</sec:authorize>
 					</tr>
                     </c:forEach>
@@ -83,6 +83,8 @@
                 </caption>
 			</section> 
 			</div>
+			
+			<%@include file="footer.jsp"%>
          
 </body>
 </html>

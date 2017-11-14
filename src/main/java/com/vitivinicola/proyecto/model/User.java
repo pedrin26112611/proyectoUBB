@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.transaction.Transactional;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.IndexColumn;
 import org.hibernate.validator.constraints.Email;
@@ -33,6 +34,7 @@ public class User implements Serializable{
 	private Integer id;
 
 	@NotEmpty
+	@Size(min=4, max=8)
 	@Column(name="sso_id", unique=true, nullable=false)
 	private String ssoId;
 	@NotEmpty
@@ -71,7 +73,7 @@ public class User implements Serializable{
 	private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
 	
 	@OneToMany(cascade= CascadeType.ALL)
-	@JoinColumn(name="id_vinia")
+	@JoinColumn(name="id_viña")
 	@IndexColumn(name="user_id")
 	private List<Vinias> listaVinias;
 

@@ -31,7 +31,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/login.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>User Registration Form</title>
+<title></title>
 <link href="<c:url value='/static/css/bootstrap.css' />"
 	rel="stylesheet"></link>
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
@@ -47,7 +47,7 @@
 						<div class="panel-heading">
 							<h3 style="margin-top: 5px;">
 							<c:choose>
-										<c:when test="${edit}">
+								<c:when test="${edit}">
 								<b>Registrar Viñas</b>
 								</c:when>
 										<c:otherwise>
@@ -214,11 +214,11 @@
 						</form:form>
 					</div>
 					<div class="row">
-						<div class="col-5"></div>
-						<img alt=""
-							src="${pageContext.request.contextPath}/resources/img/mono.gif">
+							<div class="col-5"></div>
+							<img alt=""
+								src="${pageContext.request.contextPath}/static/vinia.gif">
 
-					</div>
+						</div>
 				</div>
 			</div>
 		</div>

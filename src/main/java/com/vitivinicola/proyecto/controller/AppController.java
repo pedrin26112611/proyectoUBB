@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,7 +48,8 @@ import com.vitivinicola.proyecto.service.ViniasService;
 @RequestMapping("/")
 @SessionAttributes("roles")
 public class AppController {
-
+	private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	@Autowired
 	UserService userService;
 
@@ -103,6 +106,12 @@ public class AppController {
 					result.addError(ssoError);
 					return "registration";
 				}
+				if (!validateEmail(userService.findById(user.getId()).getEmail())) {
+					FieldError ssoError = new FieldError("user", "ssoId", messageSource.getMessage("Pattern.user.email",
+							new String[] { user.getEmail() }, Locale.getDefault()));
+					result.addError(ssoError);
+					return "registration";
+				}
 
 				userService.saveUser(user);
 				model.addAttribute("success",
@@ -119,9 +128,6 @@ public class AppController {
 		return "registrationsuccess";
 	}
 
-	/**
-	 * This method will provide the medium to update an existing user.
-	 */
 	@RequestMapping(value = { "/edit-user-{ssoId}" }, method = RequestMethod.GET)
 	public String editUser(@PathVariable String ssoId, ModelMap model) {
 		User user = userService.findBySSO(ssoId);
@@ -130,11 +136,18 @@ public class AppController {
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "registration";
 	}
+	public static boolean validateEmail(String email) {
+		 
+        // Compiles the given regular expression into a pattern.
+        Pattern pattern = Pattern.compile(PATTERN_EMAIL);
+ 
+        // Match the given input against this pattern
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+ 
+    }
 
-	/**
-	 * This method will be called on form submission, handling POST request for
-	 * updating user in database. It also validates the user input
-	 */
+
 	@RequestMapping(value = { "/edit-user-{ssoId}" }, method = RequestMethod.POST)
 	public String updateUser(@Valid User user, BindingResult result, ModelMap model, @PathVariable String ssoId) {
 
@@ -165,9 +178,6 @@ public class AppController {
 		return "registrationsuccess";
 	}
 
-	/**
-	 * This method will delete an user by it's SSOID value.
-	 */
 	@RequestMapping(value = { "/delete-user-{ssoId}" }, method = RequestMethod.GET)
 	public String deleteUser(@PathVariable String ssoId) {
 		userService.deleteUserBySSO(ssoId);
@@ -179,27 +189,20 @@ public class AppController {
 		return "redirect:/listVinias";
 	}
 
-	/**
-	 * This method will provide UserProfile list to views
-	 */
+
 	@ModelAttribute("roles")
 	public List<UserProfile> initializeProfiles() {
 		return userProfileService.findAll();
 	}
 
-	/**
-	 * This method handles Access-Denied redirect.
-	 */
+
 	@RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
 	public String accessDeniedPage(ModelMap model) {
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "accessDenied";
 	}
 
-	/**
-	 * This method handles login GET requests. If users is already logged-in and
-	 * tries to goto login page again, will be redirected to list page.
-	 */
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginPage(ModelMap model) {
 		if (isCurrentAuthenticationAnonymous()) {
@@ -210,10 +213,6 @@ public class AppController {
 		}
 	}
 
-	/**
-	 * This method handles logout requests. Toggle the handlers if you are
-	 * RememberMe functionality is useless in your app.
-	 */
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -305,7 +304,7 @@ public class AppController {
 	public String saveVinias(@Valid Vinias vinias, BindingResult result, ModelMap model) {
 
 		if (result.hasErrors()) {
-
+			model.addAttribute("edit", true);
 			return "formVinias";
 		}
 		System.out.println("Entre a registrar");
@@ -321,9 +320,6 @@ public class AppController {
 		return "home";
 	}
 
-	/**
-	 * This method returns the principal[user-name] of logged-in user.
-	 */
 	private String getPrincipal() {
 		String userName = null;
 
@@ -337,10 +333,6 @@ public class AppController {
 		return userName;
 	}
 
-	/**
-	 * This method returns true if users is already authenticated [logged-in], else
-	 * false.
-	 */
 	@ModelAttribute("IniClo")
 	private boolean isCurrentAuthenticationAnonymous() {
 		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

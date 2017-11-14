@@ -36,32 +36,81 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/busqueda.css">
 
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css">
+
+
 
 
 </head>
 <body>
 	<%@include file="authheader.jsp"%>
-	
+
+
 
 	<section class="carusel">
 		<div class="container fondo">
 			<div id="carouselExampleControls" class="carousel slide"
 				data-ride="carousel">
 				<div class="carousel-inner">
-					<div class="carousel-item active">
+					<div class="carousel-item active" style="position: center">
 						<img class="d-block w-100"
 							src="${pageContext.request.contextPath}/static/Carrusell/carrusell1.jpg"
 							alt="First slide" width="100" height="500">
+							<c:choose>
+								<c:when test="${IniClo}">
+						<div class="banner-info" style="position: center">
+						
+							<h4 style="color: white">si quieres ser parte de nuestro
+								sistema de geolocalizaci&oacute;n</h4>
+							<a href="newuser">Registrate aqu&iacute; 
+							<i
+								class="fa fa-user-plus fa-2x" aria-hidden="true"></i></a>
+								
+						</div>
+						</c:when>
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
 					</div>
-					<div class="carousel-item">
+					<div class="carousel-item" style="position: center">
 						<img class="d-block w-100"
 							src="${pageContext.request.contextPath}/static/Carrusell/carrusell2.jpg"
 							alt="Second slide" width="100" height="500">
+							<c:choose>
+								<c:when test="${IniClo}">
+						<div class="banner-info" style="position: center">
+							
+									<h4 style="color: white">si quieres ser parte de nuestro
+										sistema de geolocalizaci&oacute;n</h4>
+								
+							<a href="newuser"> Registrate aqu&iacute; <i
+								class="fa fa-user-plus fa-2x" aria-hidden="true"></i></a>
+								
+						</div>
+						</c:when>
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
 					</div>
-					<div class="carousel-item">
+					<div class="carousel-item" style="position: center">
 						<img class="d-block w-100"
 							src="${pageContext.request.contextPath}/static/Carrusell/carrusell3.jpg"
 							alt="Third slide" width="100" height="500">
+							<c:choose>
+								<c:when test="${IniClo}">
+						<div class="banner-info" style="position: center">
+						
+							<h4 style="color: white">si quieres ser parte de nuestro
+								sistema de geolocalizaci&oacute;n</h4>
+								
+							<a href="newuser"> Registrate aqu&iacute; <i
+								class="fa fa-user-plus fa-2x" aria-hidden="true"></i></a>
+						</div>
+						</c:when>
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
 					</div>
 				</div>
 			</div>
@@ -71,7 +120,7 @@
 		<br> <br>
 		<section class="contenedor-columnas">
 
-			<div class="columnasx3" id="googleMap"
+			<div class="columnasx2" id="googleMap"
 				style="width: 50%; height: 500px;"></div>
 			<script>
 				function initMap() {
@@ -126,8 +175,9 @@
 				}
 			</script>
 
-			<div class="columnasx3">
-				<form class="webdesigntuts-workshop" action="" method="">
+			<div class="columnasx2">
+				<form class="webdesigntuts-workshop" style="margin-left: 60px"
+					action="" method="">
 					<input type="search" placeholder="buscar productor...">
 					<button>Buscar</button>
 				</form>
@@ -140,71 +190,10 @@
 
 	</section>
 
-	<section>
-		<br>
-		<div>
-			<h3>si quieres ser parte de nuestro sistema de geolocalizacion</h3>
-			<a href="newuser"> Registrate aqu&iacute; <i
-				class="fa fa-user-plus fa-lg" aria-hidden="true"></i></a>
-		</div>
-		<br>
-		
-	</section>
-	<footer class="footer-distributed">
+	<br />
 
-		<div class="footer-left">
+	<%@include file="footer.jsp"%>
 
-			<h3>
-				El Origen<span></span>
-			</h3>
-			<img alt="aaaaa"
-				src="${pageContext.request.contextPath}/static/logo.png" width="150"
-				height="100" />
-
-			<p class="footer-company-name">Todos los derechos reservados
-				&copy; 2017</p>
-		</div>
-
-
-		<div class="footer-center">
-
-			<div>
-				<i class="fa fa-map-marker"></i>
-				<p>
-					<span> Avda. Andrés Bello 720</span> Chillán, Chile
-				</p>
-			</div>
-
-			<div>
-				<i class="fa fa-phone"></i>
-				<p>+56993982206</p>
-			</div>
-
-			<div>
-				<i class="fa fa-envelope"></i>
-				<p>
-					<a href="mailto:jibarram@gmail.com">elOrigen@gmail.com</a>
-				</p>
-			</div>
-
-		</div>
-
-		<div class="footer-right">
-
-			<div class="footer-icons">
-				<h3>
-					Universidad del bio-bio<span></span>
-				</h3>
-				<img alt="aaaaa"
-					src="${pageContext.request.contextPath}/static/ubb.png" width="150"
-					height="100" />
-
-
-			</div>
-
-		</div>
-
-	</footer>
 
 	<script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAShdoO5WP63SzbJikaAk21riBk5EVWUPs&callback=initMap"></script>

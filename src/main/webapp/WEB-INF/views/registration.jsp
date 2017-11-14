@@ -39,7 +39,7 @@
 <body>
 	<%@include file="authheader.jsp"%>
 	<c:choose>
-		<c:when test="${edit}">
+		<c:when test="${IniClo}">
 			<div class="formulario">
 				<div class="container" style="margin-left: 150px;">
 					<div class="row" style="margin-top: 50px">
@@ -194,7 +194,7 @@
 						<div class="row">
 							<div class="col-5"></div>
 							<img alt=""
-								src="${pageContext.request.contextPath}/resources/img/mono.gif">
+								src="${pageContext.request.contextPath}/static/animado.gif">
 
 						</div>
 					</div>
@@ -204,7 +204,7 @@
 		</c:when>
 		<c:otherwise>
 		<br><br><br><br><br><br>
-		<h3>>Usted ya esta registrado</h3>
+		<h3>Usted ya esta registrado</h3>
 		</c:otherwise>
 	</c:choose>
 </body>
